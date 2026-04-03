@@ -450,7 +450,44 @@ footer{text-align:center;padding:3rem 0 1rem;font-size:11px;color:var(--mu2);bor
   <footer>Kocherla Lokesh · DevOps + AI Engineer · Karnataka, India · 2026</footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+function copyEmail(el) {
+  // Obfuscated to prevent scrapers — assembled at runtime
+  var u = 'kchrllokesh321';
+  var d = 'gmail.com';
+  var email = u + '@' + d;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(email).then(function() {
+      showToast('Email copied: ' + email);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = email;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Email copied: ' + email);
+  }
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-family:DM Sans,sans-serif;border:0.5px solid #333;z-index:9999;transition:opacity 0.3s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
+}
+
+</script><script>
 function spark(el, color, count) {
   const old = el.querySelector('svg.sp');
   if (old) old.remove();
@@ -502,6 +539,43 @@ function navTo(id) {
 function openLink(url) {
   window.open(url, '_blank');
 }
+
+function copyEmail(el) {
+  // Obfuscated to prevent scrapers — assembled at runtime
+  var u = 'kchrllokesh321';
+  var d = 'gmail.com';
+  var email = u + '@' + d;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(email).then(function() {
+      showToast('Email copied: ' + email);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = email;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Email copied: ' + email);
+  }
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-family:DM Sans,sans-serif;border:0.5px solid #333;z-index:9999;transition:opacity 0.3s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
+}
+
 </script>
 </body>
 </html>
