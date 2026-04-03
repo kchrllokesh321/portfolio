@@ -253,7 +253,7 @@ footer{text-align:center;padding:3rem 0 1rem;font-size:11px;color:var(--mu2);bor
     <div class="hero-links">
       <button class="sbtn sbtn-w" onclick="spark(this,'#000',10);openLink('https://github.com/kchrllokesh321')">GitHub ↗</button>
       <button class="sbtn sbtn-gr" onclick="spark(this,'#38bd78',10);openLink('https://www.linkedin.com/in/kchrllokesh')">LinkedIn ↗</button>
-      <button class="sbtn" onclick="spark(this,'#fff',8)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8de6eee5ffe1e1e2e6e8fee5bebfbccdeae0ece4e1a3eee2e0">[email&#160;protected]</a></button>
+      <button class="sbtn" id="email-btn" onclick="spark(this,'#fff',8);copyEmail()"></button>
       <button class="sbtn" onclick="spark(this,'#fff',8)">+91 86186 34226</button>
     </div>
   </div>
@@ -440,7 +440,7 @@ footer{text-align:center;padding:3rem 0 1rem;font-size:11px;color:var(--mu2);bor
   <div class="sec" id="contact-sec">
     <div class="st">get in touch</div>
     <div class="cgrid">
-      <div class="cc" onclick="spark(this,'#fff',8)"><div class="ccl">Email</div><div class="ccv"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e289818a908e8e8d8987918ad1d0d3a2858f838b8ecc818d8f">[email&#160;protected]</a></div></div>
+      <div class="cc" id="email-card" onclick="spark(this,'#fff',8);copyEmail()" style="cursor:pointer"><div class="ccl">Email &mdash; click to copy</div><div class="ccv" id="email-display"></div></div>
       <div class="cc" onclick="spark(this,'#fff',8)"><div class="ccl">Phone</div><div class="ccv">+91 86186 34226</div></div>
       <div class="cc" onclick="spark(this,'#38bd78',8);openLink('https://www.linkedin.com/in/kchrllokesh')"><div class="ccl">LinkedIn</div><div class="ccv">in/kchrllokesh</div></div>
       <div class="cc" onclick="spark(this,'#fff',8);openLink('https://github.com/kchrllokesh321')"><div class="ccl">GitHub</div><div class="ccv">kchrllokesh321</div></div>
@@ -450,132 +450,101 @@ footer{text-align:center;padding:3rem 0 1rem;font-size:11px;color:var(--mu2);bor
   <footer>Kocherla Lokesh · DevOps + AI Engineer · Karnataka, India · 2026</footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-function copyEmail(el) {
-  // Obfuscated to prevent scrapers — assembled at runtime
-  var u = 'kchrllokesh321';
-  var d = 'gmail.com';
-  var email = u + '@' + d;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(email).then(function() {
-      showToast('Email copied: ' + email);
-    });
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = email;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('Email copied: ' + email);
-  }
-}
-
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'toast';
-    t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-family:DM Sans,sans-serif;border:0.5px solid #333;z-index:9999;transition:opacity 0.3s;pointer-events:none';
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity = '1';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
-}
-
-</script><script>
+<script>
 function spark(el, color, count) {
-  const old = el.querySelector('svg.sp');
+  var old = el.querySelector('svg.sp');
   if (old) old.remove();
-  const sz = 180;
-  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  var sz = 180;
+  var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
   svg.classList.add('sp');
-  svg.setAttribute('width', sz); svg.setAttribute('height', sz);
-  svg.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:999;overflow:visible';
-  el.style.position = el.style.position || 'relative';
+  svg.setAttribute('width',sz); svg.setAttribute('height',sz);
+  svg.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:999;overflow:visible';
+  el.style.position=el.style.position||'relative';
   el.appendChild(svg);
-  const cx = sz/2, cy = sz/2;
-  const sparks = [];
-  for (let i=0; i<count; i++) {
-    const angle = (i/count)*Math.PI*2 + Math.random()*0.4;
-    const len = 24 + Math.random()*20;
-    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('r','2.5'); c.setAttribute('fill',color);
-    c.setAttribute('cx',cx); c.setAttribute('cy',cy);
+  var cx=sz/2,cy=sz/2,sparks=[];
+  for(var i=0;i<count;i++){
+    var angle=(i/count)*Math.PI*2+Math.random()*0.4;
+    var len=24+Math.random()*20;
+    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('r','2.5');c.setAttribute('fill',color);
+    c.setAttribute('cx',cx);c.setAttribute('cy',cy);
     svg.appendChild(c);
-    sparks.push({el:c, angle, len});
+    sparks.push({el:c,angle:angle,len:len});
   }
-  const dur = 420, start = performance.now();
-  function anim(now) {
-    const t = Math.min((now-start)/dur, 1);
-    const e = 1-Math.pow(1-t,3);
-    sparks.forEach(s => {
-      s.el.setAttribute('cx', cx + Math.cos(s.angle)*s.len*e);
-      s.el.setAttribute('cy', cy + Math.sin(s.angle)*s.len*e);
-      s.el.setAttribute('opacity', 1-t);
-      s.el.setAttribute('r', 2.5*(1-t*0.4));
+  var dur=420,start=performance.now();
+  function anim(now){
+    var t=Math.min((now-start)/dur,1);
+    var e2=1-Math.pow(1-t,3);
+    sparks.forEach(function(s){
+      s.el.setAttribute('cx',cx+Math.cos(s.angle)*s.len*e2);
+      s.el.setAttribute('cy',cy+Math.sin(s.angle)*s.len*e2);
+      s.el.setAttribute('opacity',1-t);
+      s.el.setAttribute('r',2.5*(1-t*0.4));
     });
-    if (t<1) requestAnimationFrame(anim); else svg.remove();
+    if(t<1) requestAnimationFrame(anim); else svg.remove();
   }
   requestAnimationFrame(anim);
 }
 
-function setActive(item) {
-  document.querySelectorAll('.dock-item').forEach(i => i.classList.remove('active'));
+function setActive(item){
+  document.querySelectorAll('.dock-item').forEach(function(i){i.classList.remove('active');});
   item.classList.add('active');
 }
 
-function navTo(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const top = el.getBoundingClientRect().top + window.pageYOffset - 72;
-  window.scrollTo({top: top, behavior: 'smooth'});
+function navTo(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  var top=el.getBoundingClientRect().top+window.pageYOffset-72;
+  window.scrollTo({top:top,behavior:'smooth'});
 }
 
-function openLink(url) {
-  window.open(url, '_blank');
-}
+function openLink(url){ window.open(url,'_blank'); }
 
-function copyEmail(el) {
-  // Obfuscated to prevent scrapers — assembled at runtime
-  var u = 'kchrllokesh321';
-  var d = 'gmail.com';
-  var email = u + '@' + d;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(email).then(function() {
-      showToast('Email copied: ' + email);
-    });
+function copyEmail(){
+  var e='kchrllokesh'+'321'
+      +String.fromCharCode(64)
+      +'gmail'
+      +String.fromCharCode(46)
+      +'com';
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(e).then(function(){ showToast('Copied: '+e); });
   } else {
-    var ta = document.createElement('textarea');
-    ta.value = email;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('Email copied: ' + email);
+    var ta=document.createElement('textarea');
+    ta.value=e; ta.style.cssText='position:fixed;top:-999px;opacity:0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('Copied: '+e);
   }
 }
 
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'toast';
-    t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-family:DM Sans,sans-serif;border:0.5px solid #333;z-index:9999;transition:opacity 0.3s;pointer-events:none';
+function showToast(msg){
+  var t=document.getElementById('toast');
+  if(!t){
+    t=document.createElement('div'); t.id='toast';
+    t.style.cssText='position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(12px);background:#fff;color:#000;padding:10px 24px;border-radius:999px;font-size:13px;font-weight:500;font-family:DM Sans,sans-serif;z-index:9999;opacity:0;transition:opacity 0.25s,transform 0.25s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.3)';
     document.body.appendChild(t);
   }
-  t.textContent = msg;
-  t.style.opacity = '1';
+  t.textContent=msg;
+  t.style.opacity='1';
+  t.style.transform='translateX(-50%) translateY(0)';
   clearTimeout(t._timer);
-  t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
+  t._timer=setTimeout(function(){
+    t.style.opacity='0';
+    t.style.transform='translateX(-50%) translateY(12px)';
+  },2500);
 }
 
+window.addEventListener('DOMContentLoaded',function(){
+  var e='kchrllokesh'+'321'
+      +String.fromCharCode(64)
+      +'gmail'
+      +String.fromCharCode(46)
+      +'com';
+  var btn=document.getElementById('email-btn');
+  if(btn) btn.textContent=e;
+  var disp=document.getElementById('email-display');
+  if(disp) disp.textContent=e;
+});
 </script>
 </body>
 </html>
